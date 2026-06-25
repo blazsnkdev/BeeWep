@@ -1,6 +1,10 @@
-﻿namespace BeeWeb.Data.UnitOfWork
+﻿using BeeWeb.Data.Interfaces;
+
+namespace BeeWeb.Data.UnitOfWork
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork 
     {
+        public IUsuarioRepository UsuarioRepository { get; }
+        Task<int> SaveChangesAsync();
     }
 }
