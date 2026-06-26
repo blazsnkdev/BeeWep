@@ -12,11 +12,29 @@ namespace BeeWeb.Data.Repositories
         {
             _appDbContext = appDbContext;
         }
-        public async Task<bool> ValidarUSuarioAsync(string nombre, string clave)
+
+        public async Task<List<string>> ObtenerRolesPorUsuarioIdAsync(Guid usuarioId)
+        {
+            var list = new List<string>();
+            var usuario = await _appDbContext.TblUsuario
+                .Where(x => x.UsurioId == usuarioId)
+                .FirstOrDefaultAsync();
+
+            if(usuario is not null)
+            {
+                foreach (var rol in usuario.Roles)
+                {
+                    list.Add(rol.Nombre);
+                }
+            }
+            return list;
+        }
+
+        public async Task<Usuario?> ValidarUSuarioAsync(string nombre, string clave)
         {
             return await _appDbContext
                 .TblUsuario
-                .AnyAsync(x => x.Nombre == nombre && x.PasswordHashed == clave);
+                .FirstOrDefaultAsync(x => x.Nombre == nombre && x.PasswordHashed == clave);
         }
     }
 }

@@ -3,6 +3,7 @@
     public sealed record LoginRequest
     (
         string nombreUsuarioInput,
-        string PasswordUsuarioInput
+        string PasswordUsuarioInput,
+        List<string> roles
     );
 }

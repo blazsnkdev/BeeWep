@@ -2,6 +2,7 @@
 using BeeWeb.Models.ViewModels;
 using BeeWeb.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace BeeWeb.Controllers
 {
@@ -20,12 +21,17 @@ namespace BeeWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            var validation = await _authservice.AutenticacionUsuarioAsync(request);
-            if (!validation.isSuccess)
+            var result = await _authservice.AutenticacionUsuarioAsync(request);
+            if (result.isSuccess && result.roles is not null)//si es logeo exitoso
             {
-                return RedirectToAction("","");
+                var rolCliente = result.roles.Select(x => x == "Cliente").FirstOrDefault();
+                var rolVendedor = result.roles.Select(x => x == "Vendedor").FirstOrDefault();
+                if (rolCliente || rolVendedor)
+                {
+                    return RedirectToAction("Articulo", "Index");
+                }
             }
-            return RedirectToAction("", "");
+            return RedirectToAction("Auth", "AccessDenied");
         }
     }
 }

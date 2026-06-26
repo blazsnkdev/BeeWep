@@ -1,0 +1,18 @@
+﻿@model BeeWeb.Models.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+<div>
+    <form asp-action="Login" method="post">
+        @Html.AntiForgeryToken()
+        <div>
+            <label>Nombre: </label>
+            <input type="text" asp-for="Nombre" value="" placeholder="ingresar nombre usuario.."/>
+            <label>Password: </label>
+            <input type="text" asp-for="Password" value="" placeholder="ingresar la contraseña.." />
+            <button type="submit" class="btn btn-dark">Ingresar</button>
+        </div>
+    </form>
+</div>
