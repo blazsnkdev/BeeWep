@@ -13,6 +13,16 @@ namespace BeeWeb.Data.Repositories
             _appDbContext = appDbContext;
         }
 
+        public async Task<Guid> ObtenerIdPorCodigoAsync(string codigousuario)
+        {
+            var usuario = await _appDbContext.TblUsuario.Where(x => x.Codigo == codigousuario).FirstOrDefaultAsync();
+            if(usuario is null)
+            {
+                return Guid.Empty;
+            }
+            return usuario.UsurioId;
+        }
+
         public async Task<List<string>> ObtenerRolesPorUsuarioIdAsync(Guid usuarioId)
         {
             var list = new List<string>();
