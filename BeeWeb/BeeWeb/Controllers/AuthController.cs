@@ -22,10 +22,10 @@ namespace BeeWeb.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel viewModel)
+        public async Task<IActionResult> Login(LoginViewModel viewModel)//NOTE: OJITO AQUÍ FLACO PODES ARREGLARLO
         {
             var result = await _authservice.AutenticacionUsuarioAsync(new LoginRequest(viewModel.Codigo,viewModel.Password));
-            if (result.isSuccess && result.roles is not null)//si es logeo exitoso
+            if (result.isSuccess && result.roles is not null)
             {
                 var rolCliente = result.roles.Select(x => x == "Cliente").FirstOrDefault();
                 var rolVendedor = result.roles.Select(x => x == "Vendedor").FirstOrDefault();
