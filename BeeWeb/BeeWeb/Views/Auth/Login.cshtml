@@ -2,18 +2,43 @@
 @{
     ViewData["Title"] = "Login";
 }
-
-<h1>Login</h1>
-<div>
-    <form asp-action="Login" method="post">
-        @Html.AntiForgeryToken()
-        <div>
-            <label>Nombre: </label>
-            <input type="text" asp-for="Nombre" value="" placeholder="ingresar nombre usuario.."/>
-            <label>Password: </label>
-            <input type="text" asp-for="Password" value="" placeholder="ingresar la contraseña.." />
-            <button type="submit" class="btn btn-dark">Ingresar</button>
-        </div>
-    </form>
-    <a asp-action="RegistrarTienda" class="btn btn-outline-primary">Registrar Negocio</a>
-</div>
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/Login.css"/>
+}
+<div class="cajafuera">
+    <div class="formulariocaja">
+        <div style="text-align:center;">
+            <img src="~/img/logo.png" alt="BeeWeb" style="width:90px;margin-bottom:15px;" />
+            <div class="formtitulo"> BeeWeb
+                </div> 
+                <p style="margin-top:-10px;color:#555;">
+                    Inicia sesión para continuar 
+                    </p>
+                    </div>
+                    <form asp-action="Login" method="post">
+                        @Html.AntiForgeryToken() 
+                        <div class="textoscajas"> Usuario </div> 
+                        <div style="display:flex;justify-content:center;">
+                            <input asp-for="Codigo" class="cajaentradatexto" placeholder="Ingrese su usuario..." />
+                            </div>
+                            <div class="textoscajas">
+                                Contraseña 
+                                </div>
+                                <div style="display:flex;justify-content:center;">
+                                    <input asp-for="Password" type="password" class="cajaentradatexto" placeholder="Ingrese su contraseña..." /> 
+                                    </div> 
+                                    <div style="display:flex;justify-content:center;"> 
+                                        <button type="submit" class="botonenviar">
+                                            Iniciar Sesión </button>
+                                            </div>
+                                            </form>
+                                            <hr /> 
+                                            <div style="text-align:center;">
+                                                ¿Aún no tienes un negocio registrado?
+                                                <br />
+                                                <br />
+                                                <a asp-action="RegistrarTienda" class="btn btn-outline-primary">Registrar Negocio </a>
+                                            </div>
+                                            </div>
+                                            </div>

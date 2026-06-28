@@ -8,19 +8,10 @@ namespace BeeWeb.Data.Repositories
     public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
     {
         private readonly AppDbContext _appDbContext;
-        public UsuarioRepository(AppDbContext appDbContext, DbSet<Usuario> dbSet) : base(appDbContext, dbSet)
+
+        public UsuarioRepository(AppDbContext appDbContext) : base (appDbContext)
         {
             _appDbContext = appDbContext;
-        }
-
-        public async Task<Guid> ObtenerIdPorCodigoAsync(string codigousuario)
-        {
-            var usuario = await _appDbContext.TblUsuario.Where(x => x.Codigo == codigousuario).FirstOrDefaultAsync();
-            if(usuario is null)
-            {
-                return Guid.Empty;
-            }
-            return usuario.UsurioId;
         }
 
         public async Task<List<string>> ObtenerRolesPorUsuarioIdAsync(Guid usuarioId)
@@ -28,6 +19,7 @@ namespace BeeWeb.Data.Repositories
             var list = new List<string>();
             var usuario = await _appDbContext.TblUsuario
                 .Where(x => x.UsurioId == usuarioId)
+                .Include(x=>x.Roles)
                 .FirstOrDefaultAsync();
 
             if(usuario is not null)
@@ -40,11 +32,9 @@ namespace BeeWeb.Data.Repositories
             return list;
         }
 
-        public async Task<Usuario?> ValidarUSuarioAsync(string nombre, string clave)
+        public async Task<Usuario?> ObtenerUsuarioPorCodigoAsync(string codigo)
         {
-            return await _appDbContext
-                .TblUsuario
-                .FirstOrDefaultAsync(x => x.Nombre == nombre && x.PasswordHashed == clave);
+            return await _appDbContext.TblUsuario.Where(x => x.Codigo == codigo).FirstOrDefaultAsync();
         }
     }
 }

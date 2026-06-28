@@ -12,12 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(option
     => option.UseSqlServer(builder.Configuration.GetConnectionString("beewebcn")));
-var app = builder.Build();
-
+//repositories
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<INegocioRepository, NegocioRepository>();
+//services
 builder.Services.AddScoped<IAuthService, AuthService>();
-
-
+builder.Services.AddScoped<INegocioService, NegocioService>();
+var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

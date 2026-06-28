@@ -6,22 +6,23 @@ namespace BeeWeb.Data.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly AppDbContext _appDbContext;
-        private readonly DbSet<T> _dbSet;
-        public Repository(AppDbContext appDbContext, DbSet<T> dbSet)
+        protected readonly AppDbContext _appDbContext;
+        protected readonly DbSet<T> _dbSet;
+
+        public Repository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
-            _dbSet = dbSet;
+            _dbSet = _appDbContext.Set<T>();
         }
 
         public async Task AddAsync(T entity)
         {
-            await _appDbContext.AddAsync(entity);
+            await _dbSet.AddAsync(entity);
         }
 
         public void Delete(T entity)
         {
-            _appDbContext.Remove(entity);
+            _dbSet.Remove(entity);
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()

@@ -1,0 +1,35 @@
+﻿.formulariocaja {
+    box-shadow: 0 15px 40px rgba(0,0,0,.25);
+    border: none;
+    border-radius: 15px;
+    transition: .3s;
+}
+
+    .formulariocaja:hover {
+        transform: translateY(-3px);
+    }
+
+.cajaentradatexto {
+    transition: .3s;
+    outline: none;
+}
+
+    .cajaentradatexto:focus {
+        border: 2px solid #6D26D3;
+        box-shadow: 0 0 10px rgba(109,38,211,.3);
+    }
+
+.botonenviar {
+    transition: .3s;
+}
+
+    .botonenviar:hover {
+        background: #4d16a9;
+        transform: scale(1.03);
+    }
+
+hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}

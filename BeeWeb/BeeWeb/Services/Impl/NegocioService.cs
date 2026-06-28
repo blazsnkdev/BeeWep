@@ -16,7 +16,11 @@ namespace BeeWeb.Services.Impl
 
         public async Task<Guid> RegistrarAsync(RegistrarNegocioRequest request)
         {
-            var usuarioId = await _uow.UsuarioRepository.ObtenerIdPorCodigoAsync(request.codigoUsuario);
+            var usuario = await _uow.UsuarioRepository.ObtenerUsuarioPorCodigoAsync(request.codigoUsuario);
+            if(usuario is null)
+            {
+                return Guid.Empty;
+            }
             var model = new Negocio()
             {
                 NegocioId = Guid.NewGuid(),
@@ -25,7 +29,7 @@ namespace BeeWeb.Services.Impl
                 Direccion = request.direccion,
                 TipoMoneda = request.tipoMoneda,
                 Rubro = request.rubro,
-                UsuarioId = usuarioId
+                UsuarioId = usuario.UsurioId
             };
             return await _uow.NegocioRepository.RegistrarAsync(model);
         }

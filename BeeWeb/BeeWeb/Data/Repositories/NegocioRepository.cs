@@ -8,7 +8,7 @@ namespace BeeWeb.Data.Repositories
     public class NegocioRepository : Repository<Negocio>, INegocioRepository
     {
         private readonly AppDbContext _appDbContext;
-        public NegocioRepository(AppDbContext appDbContext, DbSet<Negocio> dbSet) : base(appDbContext, dbSet)
+        public NegocioRepository(AppDbContext appDbContext) : base(appDbContext)
         {
             _appDbContext = appDbContext;
         }

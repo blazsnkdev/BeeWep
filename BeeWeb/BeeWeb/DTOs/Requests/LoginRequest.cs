@@ -2,8 +2,7 @@
 {
     public sealed record LoginRequest
     (
-        string nombreUsuarioInput,
-        string PasswordUsuarioInput,
-        List<string> roles
+        string codigoUsuarioInput,
+        string PasswordUsuarioInput
     );
 }

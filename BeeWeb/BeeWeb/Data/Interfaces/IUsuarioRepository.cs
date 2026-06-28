@@ -4,8 +4,7 @@ namespace BeeWeb.Data.Interfaces
 {
     public interface IUsuarioRepository : IRepository<Usuario>
     {
-        Task<Usuario?> ValidarUSuarioAsync(string nombre, string clave);
+        Task<Usuario?> ObtenerUsuarioPorCodigoAsync(string codigo);
         Task<List<string>> ObtenerRolesPorUsuarioIdAsync(Guid usuarioId);
-        Task<Guid> ObtenerIdPorCodigoAsync(string codigousuario);
     }
 }

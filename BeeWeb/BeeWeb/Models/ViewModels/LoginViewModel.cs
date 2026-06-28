@@ -2,7 +2,7 @@
 {
     public class LoginViewModel
     {
-        public string Nombre { get; set; } = string.Empty;
+        public string Codigo { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
     }
 }

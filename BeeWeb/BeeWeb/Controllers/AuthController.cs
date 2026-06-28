@@ -2,7 +2,6 @@
 using BeeWeb.Models.ViewModels;
 using BeeWeb.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 
 namespace BeeWeb.Controllers
 {
@@ -23,9 +22,9 @@ namespace BeeWeb.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginRequest request)
+        public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
-            var result = await _authservice.AutenticacionUsuarioAsync(request);
+            var result = await _authservice.AutenticacionUsuarioAsync(new LoginRequest(viewModel.Codigo,viewModel.Password));
             if (result.isSuccess && result.roles is not null)//si es logeo exitoso
             {
                 var rolCliente = result.roles.Select(x => x == "Cliente").FirstOrDefault();

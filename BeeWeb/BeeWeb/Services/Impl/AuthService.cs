@@ -1,4 +1,5 @@
-﻿using BeeWeb.Data.UnitOfWork;
+﻿using BCrypt.Net;
+using BeeWeb.Data.UnitOfWork;
 using BeeWeb.DTOs.Requests;
 using BeeWeb.DTOs.Responses;
 using BeeWeb.Services.Interfaces;
@@ -13,14 +14,17 @@ namespace BeeWeb.Services.Impl
         {
             _uow = uow;
         }
-
         public async Task<ValidationLoginResponse> AutenticacionUsuarioAsync(LoginRequest request)
         {
-            var usuario = await _uow.UsuarioRepository.ValidarUSuarioAsync(request.nombreUsuarioInput, request.PasswordUsuarioInput);
+            
+            var usuario = await _uow.UsuarioRepository.ObtenerUsuarioPorCodigoAsync(request.codigoUsuarioInput);
             if (usuario is not null)
             {
-                var roles = await _uow.UsuarioRepository.ObtenerRolesPorUsuarioIdAsync(usuario.UsurioId);
-                var response = new ValidationLoginResponse(true,DateTime.Now,roles);
+                if (BCrypt.Net.BCrypt.Verify(request.PasswordUsuarioInput, usuario.PasswordHashed))
+                {
+                    var roles = await _uow.UsuarioRepository.ObtenerRolesPorUsuarioIdAsync(usuario.UsurioId);
+                    return new ValidationLoginResponse(true, DateTime.Now, roles);
+                }
             }
             return new ValidationLoginResponse(false,DateTime.Now,null);
         }
