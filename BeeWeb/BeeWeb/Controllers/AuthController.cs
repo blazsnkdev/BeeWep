@@ -31,7 +31,7 @@ namespace BeeWeb.Controllers
                 var rolVendedor = result.roles.Select(x => x == "Vendedor").FirstOrDefault();
                 if (rolCliente)
                 {
-                    return RedirectToAction("Articulo", "Index");
+                    return RedirectToAction("Index", "Negocio");
                 }
                 if (rolCliente || rolVendedor)
                 {

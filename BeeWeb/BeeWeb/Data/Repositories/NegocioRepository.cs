@@ -2,6 +2,7 @@
 using BeeWeb.Data.Interfaces;
 using BeeWeb.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BeeWeb.Data.Repositories
 {
@@ -12,6 +13,12 @@ namespace BeeWeb.Data.Repositories
         {
             _appDbContext = appDbContext;
         }
+
+        public async Task<Negocio?> DetalePorUsuarioIdSesionAsync(Guid? usuarioId)
+        {
+            return await _appDbContext.TblNegocio.Where(x => x.Usuario.UsurioId == usuarioId).Include(x => x.Usuario).FirstOrDefaultAsync();
+        }
+
         public async Task<Guid> RegistrarAsync(Negocio negocio)//NOTE: ojito aquí para mejorar la regla de negocio a futuro
         {
             await _appDbContext.AddAsync(negocio);

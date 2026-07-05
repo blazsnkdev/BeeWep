@@ -4,10 +4,12 @@ using BeeWeb.Data.Repositories;
 using BeeWeb.Data.UnitOfWork;
 using BeeWeb.Services.Impl;
 using BeeWeb.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(option
@@ -19,6 +21,17 @@ builder.Services.AddScoped<INegocioRepository, NegocioRepository>();
 //services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<INegocioService, NegocioService>();
+
+builder.Services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login";
+        options.AccessDeniedPath = "/AccesoDenegado";
+    });
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -31,6 +44,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

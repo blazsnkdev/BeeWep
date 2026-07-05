@@ -1,5 +1,6 @@
 ﻿using BeeWeb.Data.UnitOfWork;
 using BeeWeb.DTOs.Requests;
+using BeeWeb.DTOs.Responses;
 using BeeWeb.Models;
 using BeeWeb.Services.Interfaces;
 
@@ -12,6 +13,24 @@ namespace BeeWeb.Services.Impl
         public NegocioService(IUnitOfWork uow)
         {
             _uow = uow;
+        }
+
+        public async Task<DetallePerfilResponse?> DetallePerfilAsync(Guid? usuarioId)
+        {
+            var negocio = await _uow.NegocioRepository.DetalePorUsuarioIdSesionAsync(usuarioId);
+            if(negocio is null)
+            {
+                return null;
+            }
+            return new 
+                DetallePerfilResponse(
+                negocio.Nombre,
+                negocio.Direccion,
+                negocio.Rubro,
+                negocio.Descripcion,
+                negocio.TipoMoneda,
+                negocio.Usuario.Nombre,
+                negocio.Usuario.Codigo);
         }
 
         public async Task<Guid> RegistrarAsync(RegistrarNegocioRequest request)
