@@ -22,7 +22,7 @@ namespace BeeWeb.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel viewModel)//NOTE: OJITO AQUÍ FLACO PODES ARREGLARLO
+        public async Task<IActionResult> Login(LoginViewModel viewModel)//TODO: OJITO AQUÍ FLACO PODES ARREGLARLO
         {
             var result = await _authservice.AutenticacionUsuarioAsync(new LoginRequest(viewModel.Codigo,viewModel.Password));
             if (result.isSuccess && result.roles is not null)
@@ -55,7 +55,7 @@ namespace BeeWeb.Controllers
                 viewModel.TipoMoneda,
                 viewModel.CodigoUsuario,
                 viewModel.Direccion));
-            if(result == Guid.Empty)//NOTE: ojito aqui flaco
+            if(result == Guid.Empty)//TODO: ojito aqui flaco
             {
                 return View(viewModel);
             }
