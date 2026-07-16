@@ -6,6 +6,6 @@ namespace BeeWeb.Services.Interfaces
     public interface INegocioService
     {
         Task<Guid> RegistrarAsync(RegistrarNegocioRequest request);
-        Task<DetallePerfilResponse?> DetallePerfilAsync(Guid? usuarioId);
+        Task<DetallePerfilResponse?> DetallePerfilAsync(Guid usuarioId);
     }
 }

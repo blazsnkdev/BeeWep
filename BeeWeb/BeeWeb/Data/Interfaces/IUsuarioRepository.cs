@@ -6,5 +6,6 @@ namespace BeeWeb.Data.Interfaces
     {
         Task<Usuario?> ObtenerUsuarioPorCodigoAsync(string codigo);
         Task<List<string>> ObtenerRolesPorUsuarioIdAsync(Guid usuarioId);
+        Task<Usuario?> ObtenerPorIdAsync(Guid usuarioId);
     }
 }

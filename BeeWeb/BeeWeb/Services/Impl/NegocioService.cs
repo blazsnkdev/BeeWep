@@ -15,9 +15,9 @@ namespace BeeWeb.Services.Impl
             _uow = uow;
         }
 
-        public async Task<DetallePerfilResponse?> DetallePerfilAsync(Guid? usuarioId)
+        public async Task<DetallePerfilResponse?> DetallePerfilAsync(Guid usuarioId)
         {
-            var negocio = await _uow.NegocioRepository.DetalePorUsuarioIdSesionAsync(usuarioId);
+            var negocio = await _uow.NegocioRepository.DetalePorUsuarioIdAsync(usuarioId);
             if(negocio is null)
             {
                 return null;

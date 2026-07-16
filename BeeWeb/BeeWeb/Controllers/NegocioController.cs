@@ -2,7 +2,6 @@
 using BeeWeb.Services.Interfaces;
 using BeeWeb.Utils;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace BeeWeb.Controllers
 {

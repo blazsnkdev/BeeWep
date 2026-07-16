@@ -14,14 +14,16 @@ namespace BeeWeb.Data.Repositories
             _appDbContext = appDbContext;
         }
 
-        public async Task<Negocio?> DetalePorUsuarioIdSesionAsync(Guid? usuarioId)
+        public async Task<Negocio?> DetalePorUsuarioIdAsync(Guid usuarioId)//TODO: esto es para el perfíl
         {
-            return await _appDbContext.TblNegocio.Where(x => x.Usuario.UsurioId == usuarioId).Include(x => x.Usuario).FirstOrDefaultAsync();
+            return await _appDbContext.TblNegocio
+                .Include(x => x.Usuario)
+                .FirstOrDefaultAsync(x => x.UsuarioId == usuarioId);
         }
-
         public async Task<Guid> RegistrarAsync(Negocio negocio)//NOTE: ojito aquí para mejorar la regla de negocio a futuro
         {
             await _appDbContext.AddAsync(negocio);
+            await _appDbContext.SaveChangesAsync();
             return negocio.NegocioId;
         }
     }
