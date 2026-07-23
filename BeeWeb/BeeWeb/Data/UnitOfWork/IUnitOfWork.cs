@@ -6,6 +6,7 @@ namespace BeeWeb.Data.UnitOfWork
     {
         public IUsuarioRepository UsuarioRepository { get; }
         public INegocioRepository NegocioRepository { get;}
+        public IArticuloRepository ArticuloRepository { get;}
         Task<int> SaveChangesAsync();
     }
 }

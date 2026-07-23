@@ -23,7 +23,6 @@ namespace BeeWeb.Data.Repositories
         public async Task<Guid> RegistrarAsync(Negocio negocio)//NOTE: ojito aquí para mejorar la regla de negocio a futuro
         {
             await _appDbContext.AddAsync(negocio);
-            await _appDbContext.SaveChangesAsync();
             return negocio.NegocioId;
         }
     }

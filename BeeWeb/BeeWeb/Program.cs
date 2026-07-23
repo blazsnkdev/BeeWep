@@ -17,9 +17,11 @@ builder.Services.AddDbContext<AppDbContext>(option
 //repositories
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IArticuloRepository, ArticuloRepository>();
 builder.Services.AddScoped<INegocioRepository, NegocioRepository>();
 //services
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IArticuloService, ArticuloService>();
 builder.Services.AddScoped<INegocioService, NegocioService>();
 
 builder.Services

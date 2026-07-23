@@ -3,43 +3,55 @@
     ViewData["Title"] = "Login";
     Layout = null;
 }
-@section Styles
-{
-    <link rel="stylesheet" href="~/css/Login.css"/>
-}
-<div class="cajafuera">
-    <div class="formulariocaja">
-        <div style="text-align:center;">
-            <img src="~/img/logo.png" alt="BeeWeb" style="width:90px;margin-bottom:15px;" />
-            <div class="formtitulo"> BeeWeb
-                </div> 
-                <p style="margin-top:-10px;color:#555;">
-                    Inicia sesión para continuar 
-                    </p>
-                    </div>
-                    <form asp-action="Login" method="post">
-                        @Html.AntiForgeryToken() 
-                        <div class="textoscajas"> Usuario </div> 
-                        <div style="display:flex;justify-content:center;">
-                            <input asp-for="Codigo" class="cajaentradatexto" placeholder="Ingrese su usuario..." />
-                            </div>
-                            <div class="textoscajas">
-                                Contraseña 
-                                </div>
-                                <div style="display:flex;justify-content:center;">
-                                    <input asp-for="Password" type="password" class="cajaentradatexto" placeholder="Ingrese su contraseña..." /> 
-                                    </div> 
-                                    <div style="display:flex;justify-content:center;"> 
-                                        <button type="submit" class="botonenviar">
-                                            Iniciar Sesión </button>
-                                            </div>
-                                            </form>
-                                            <hr /> 
-                                            <div style="text-align:center;">
-                                                ¿Aún no tienes un negocio registrado?
-                                                <br />
-                                                <br />
-                                                <a asp-action="RegistrarTienda" class="btn btn-outline-primary">Registrar Negocio </a>
-                                            </div>
-                                            </div>
-                                            </div>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="~/img/beewep.png" alt="BeeWeb" class="login-logo" />
+                <h1>BeeWeb</h1>
+                <p>Inicia sesión para continuar</p>
+            </div>
+
+            <form asp-action="Login" method="post" class="login-form">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+                <div class="field">
+                    <label asp-for="Codigo">Usuario</label>
+                    <input asp-for="Codigo" class="input-control" placeholder="Ingrese su usuario..." autocomplete="username" />
+                    <span asp-validation-for="Codigo" class="field-error"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Password">Contraseña</label>
+                    <input asp-for="Password" type="password" class="input-control" placeholder="Ingrese su contraseña..." autocomplete="current-password" />
+                    <span asp-validation-for="Password" class="field-error"></span>
+                </div>
+
+                <button type="submit" class="login-button">Iniciar Sesión</button>
+            </form>
+
+            <hr class="divider" />
+
+            <div class="register-box">
+                <p>¿Aún no tienes un negocio registrado?</p>
+                <a asp-action="RegistrarTienda" class="register-link">Registrar Negocio</a>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>

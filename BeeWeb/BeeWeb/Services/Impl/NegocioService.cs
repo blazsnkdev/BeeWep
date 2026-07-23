@@ -50,7 +50,9 @@ namespace BeeWeb.Services.Impl
                 Rubro = request.rubro,
                 UsuarioId = usuario.UsurioId
             };
-            return await _uow.NegocioRepository.RegistrarAsync(model);
+            var result = await _uow.NegocioRepository.RegistrarAsync(model);
+            await _uow.SaveChangesAsync();
+            return result;
         }
     }
 }
